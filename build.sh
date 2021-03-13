@@ -25,6 +25,6 @@ firewall-cmd --zone=public --add-source=10.0.9.0/24 --permanent
 firewall-cmd --zone=home --change-interface=$interface
 firewall-cmd --zone=public --add-port=3389/tcp
 firewall-cmd --zone=public --add-port=9090/tcp
-
+firewall-cmd --reload
 echo 'Setup Complete, Auditors may now log in with RDP and install their own software'
 
