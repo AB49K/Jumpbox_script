@@ -24,7 +24,10 @@ yum install cockpit NetworkManager -y
 yum groupinstall "GNOME Desktop" "Graphical Administration Tools" -y
 yum groupinstall -y "Xfce"
 yum install xrdp tigervnc-server -y
-mv sesman.ini /etc/xrdp/sesman.ini
+#Always copy files. Moving them can cause SELinux issues.
+cp sesman.ini /etc/xrdp/sesman.ini
+cp .Xclients /etc/skel/.
+chmod +x /etc/skel/.Xclients
 systemctl start xrdp
 systemctl start cockpit
 
