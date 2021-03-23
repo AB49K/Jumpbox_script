@@ -14,7 +14,7 @@ yum install openvpn3-client -y
 openvpn3 session-start --config Jump_Network.ovpn
 
 #Adding the internal DNS resolver and joining the domain
-echo 'nameserver 10.0.10.1' > /etc/resolv.conf
+echo "10.0.9.2  auth.6162s.net" >> /etc/hosts
 yum install realmd ipa-client oddjob oddjob-mkhomedir sssd -y
 read -p 'Joining the domain (Must domain admin) Username: ' dadmin
 realm join -v auth.6162s.net -U $dadmin
