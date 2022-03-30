@@ -37,8 +37,8 @@ systemctl start cockpit
 
 #Firewall configs - Not working right just yet.
 read -p 'Configuring firewall. Please enter WAN interface (usually eth0) : ' interface
-firewall-cmd --zone=public --add-source=10.0.0.0/24 --permanent
-firewall-cmd --zone=public --add-source=10.0.0.0/24 --permanent
+firewall-cmd --zone=public --add-source=10.0.9.0/24 --permanent
+firewall-cmd --zone=public --add-source=10.0.8.0/24 --permanent
 firewall-cmd --zone=home --change-interface=$interface
 firewall-cmd --zone=public --add-port=3389/tcp
 firewall-cmd --zone=public --add-port=9090/tcp
