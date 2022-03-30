@@ -1,8 +1,12 @@
+#!/bin/bash
+
+#Please note this script has been modified to change network IP/names for security concerns.
+
 #Script only works for Centos7
 
 
 #Needs to have a compliant hostname set
-read -p 'New Hostname for machine (must be all lowercase eg "clientname.6162s.net": ' hostname
+read -p 'New Hostname for machine (must be all lowercase eg "clientname.example.net": ' hostname
 hostname $hostname
 echo $hostname > /etc/hostname
 
@@ -14,10 +18,10 @@ yum install openvpn3-client -y
 openvpn3 session-start --config Jump_Network.ovpn
 
 #Adding the internal DNS resolver and joining the domain
-echo "10.0.9.2  auth.6162s.net" >> /etc/hosts
+echo "10.0.9.2  auth.example.net" >> /etc/hosts
 yum install realmd ipa-client oddjob oddjob-mkhomedir sssd -y
 read -p 'Joining the domain (Must domain admin) Username: ' dadmin
-realm join -v auth.6162s.net -U $dadmin
+realm join -v auth.example.net -U $dadmin
 
 #Installing access software and fixing up some by-default broken xrdp configs
 yum install cockpit NetworkManager -y
@@ -33,8 +37,8 @@ systemctl start cockpit
 
 #Firewall configs - Not working right just yet.
 read -p 'Configuring firewall. Please enter WAN interface (usually eth0) : ' interface
-firewall-cmd --zone=public --add-source=10.0.8.0/24 --permanent
-firewall-cmd --zone=public --add-source=10.0.9.0/24 --permanent
+firewall-cmd --zone=public --add-source=10.0.0.0/24 --permanent
+firewall-cmd --zone=public --add-source=10.0.0.0/24 --permanent
 firewall-cmd --zone=home --change-interface=$interface
 firewall-cmd --zone=public --add-port=3389/tcp
 firewall-cmd --zone=public --add-port=9090/tcp
